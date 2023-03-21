@@ -6,7 +6,6 @@ public class PlayerController : MonoBehaviour
 {
     float speed = 10.0f;
     float jumpForce = 10.0f;
-    float mouseSensitivity = 10.0f;
 
     Rigidbody rb;
     CapsuleCollider col;
@@ -36,8 +35,9 @@ public class PlayerController : MonoBehaviour
         Vector3 moveAmount = transform.rotation * velocity;
         rb.MovePosition(rb.position + moveAmount * Time.fixedDeltaTime);
 
-        // rotate with camera
-        transform.rotation = Quaternion.Euler(0, Camera.main.transform.rotation.eulerAngles.y, 0);
+        // rotate with camera, smooth, just rotate left/right
+        transform.rotation = Quaternion.Lerp(transform.rotation, Camera.main.transform.rotation, 0.1f);
+        transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
     }
 
     bool IsGrounded()

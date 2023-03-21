@@ -8,7 +8,7 @@ public class CameraController : MonoBehaviour
     public float smoothSpeed = 0.125f;
     public Vector3 offset;
     public float verticalRotationRange = 60f;
-    float mouseSensitivity = 10.0f;
+    float mouseSensitivity = 5.0f;
 
     // Start is called before the first frame update
     void Start()
