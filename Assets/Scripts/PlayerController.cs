@@ -25,16 +25,19 @@ public class PlayerController : MonoBehaviour
         {
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
-
-        // rotate player with mouse, move forward and backward base on rotation
-        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
-        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
-
-        transform.Rotate(Vector3.up * mouseX);
     }
 
     void FixedUpdate()
     {
+        float horizontal = Input.GetAxis("Horizontal");
+        float vertical = Input.GetAxis("Vertical");
+        Vector3 direction = new Vector3(horizontal, 0, vertical);
+        Vector3 velocity = direction * speed;
+        Vector3 moveAmount = transform.rotation * velocity;
+        rb.MovePosition(rb.position + moveAmount * Time.fixedDeltaTime);
+
+        // rotate with camera
+        transform.rotation = Quaternion.Euler(0, Camera.main.transform.rotation.eulerAngles.y, 0);
     }
 
     bool IsGrounded()
